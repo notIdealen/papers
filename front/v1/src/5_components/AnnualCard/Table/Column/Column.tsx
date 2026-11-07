@@ -13,23 +13,21 @@ type ColumnProps = {
     isDraggable: boolean,
 }
 
-let GLOBAL_VAR1: string;
+let GLOBAL_VAR_DRAGGABLE_COLUMN_ID: string;
 
 export default function Column({column, tableID, isDraggable}: ColumnProps) {
     const headerUUID = useId();
     const footerUUID = useId();
     const dispatch = useDispatch<AppDispatch>();
 
-    const [draggable, setDraggable] = useState(false);
+    const [draggableStyle, setDraggableStyle] = useState(false);
+    const [touchedStyle, setTouchedStyle] = useState(false);
 
-    const [touched, setTouched] = useState(false);
-
-    const isColumnArea = useRef(0);
-    // const draggedColumnID = useRef('');
+    const position = useRef(0);
 
     let fullClassName = style.column;
-    fullClassName = draggable ? fullClassName+' '+style.draggable : fullClassName;
-    fullClassName = touched ? fullClassName+' '+style.touched : fullClassName;
+    fullClassName = draggableStyle ? fullClassName+' '+style.draggable : fullClassName;
+    fullClassName = touchedStyle ? fullClassName+' '+style.touched : fullClassName;
 
     const COLUMN_HEADER = column.type === 'static' ? 
         <Cell cell={{id: headerUUID, value: column.name}} editable={false} type='header' columnID={column.id}/> :
@@ -65,48 +63,46 @@ export default function Column({column, tableID, isDraggable}: ColumnProps) {
     };
 
     return <div className={fullClassName} id={column.id} draggable={isDraggable}
-        onDragStart={(e)=>{
-            const t = e.target as HTMLElement;
-            // draggedColumnID.current = t.id;
-            GLOBAL_VAR1 = t.id;
-            setDraggable(true);
+        onDragStart={()=>{
+            GLOBAL_VAR_DRAGGABLE_COLUMN_ID = column.id;
+            setDraggableStyle(true);
         }}// получить id и наложить эффекты на выбранный элемент
+
         onDragEnter={(e)=>{
             e.preventDefault();
             e.stopPropagation();
-            isColumnArea.current++;
-            if (isColumnArea.current === 1) {
-                setTouched(true);
+            position.current++;
+            if (position.current === 1) {
+                setTouchedStyle(true);
             }
         }}// наложить эффекты элементу над которым проносят, получу id для замены
+
         onDragLeave={(e)=>{
             e.preventDefault();
             e.stopPropagation();
-            isColumnArea.current--;
-            if (isColumnArea.current === 0) {
-                setTouched(false);
+            position.current--;
+            if (position.current === 0) {
+                setTouchedStyle(false);
             }
         }}// вернуть первоначальный вид элементу, удалить id.
+
         onDragOver={(e)=>{e.preventDefault();}}// разрешает сброс, установить превентдефаулт. или тут получать id
+
         onDrop={(e)=>{
+            // console.log('>>>>>>', column, position.current);
             e.preventDefault();
             e.stopPropagation();
-
-            const t = e.target as HTMLElement;
-            // console.log('drop:', e.dataTransfer.items.);
-            isColumnArea.current = 0; 
-            setTouched(false);
-            // console.log('dcid:', draggedColumnID.current);
-            if (!t.id ||  t.id === GLOBAL_VAR1) {
-                console.log('bad ass');
+            if (column.id === GLOBAL_VAR_DRAGGABLE_COLUMN_ID) {
                 return;
             }
-            dispatch(tableActions.DragColumn({tableID: tableID, draggedColumnID: GLOBAL_VAR1, posID: t.id}));
+            dispatch(tableActions.DragColumn({tableID: tableID, columnID: GLOBAL_VAR_DRAGGABLE_COLUMN_ID, posID: column.id}));
+            setTouchedStyle(false);
+            position.current = 0;
         }} // дропает элемент, завершение
-        onDragEnd={()=>{setDraggable(false); GLOBAL_VAR1 = '';}}
+
+        onDragEnd={()=>{setDraggableStyle(false); GLOBAL_VAR_DRAGGABLE_COLUMN_ID = '';}}
     >
         <Button click={()=>{dispatch(tableActions.DeleteColumn({id: column.id}));}}>del</Button>
-        <span>move</span>
         {COLUMN_HEADER}
         {COLUMN_CELLS}
         {COLUMN_FOOTER}

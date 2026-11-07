@@ -23,12 +23,12 @@ export const tableSlice = createSlice({
                 return false;
             });
         },
-        DragColumn: (tables: Table[], action:{type: string, payload:{tableID: string, draggedColumnID: string, posID: string}}) => {
-            console.log(action.payload.tableID, action.payload.draggedColumnID, action.payload.posID);
+        DragColumn: (tables: Table[], action:{type: string, payload:{tableID: string, columnID: string, posID: string}}) => {
+            // console.log(action.payload.tableID, action.payload.columnID, action.payload.posID);
             const table = tables.find(table => table.id === action.payload.tableID);
             if (table) {
                 const posIdx = table.columns.findIndex(column => column.id === action.payload.posID);
-                const columnIdx = table.columns.findIndex(column => column.id === action.payload.draggedColumnID);
+                const columnIdx = table.columns.findIndex(column => column.id === action.payload.columnID);
                 // const column = table.columns.splice(columnIdx, 1);
                 if (posIdx < 0 || columnIdx < 0) return;
                 table.columns.splice(posIdx, 0, ...table.columns.splice(columnIdx, 1));

@@ -23,7 +23,7 @@ export default function AnnualIncomePage() {
 
     const data = useSelector<RootState>(state => state.TABLE) as TableDTO[];
     const unsortedTables = [...data];
-    const TABLES = unsortedTables.
+    const CARDS = unsortedTables.
         sort((a: TableDTO, b:TableDTO) => Number(b.year) - Number(a.year)).
         map((table: TableDTO) => <AnnualCard key={table.id} table={table}/>);
 
@@ -31,7 +31,7 @@ export default function AnnualIncomePage() {
         <div>
             <Header/>
             <button>ADD</button>
-            {TABLES}
+            {CARDS}
         </div>
     );
 }

@@ -12,12 +12,29 @@ import CreateColumnForm from './Table/Column/CreateColumnForm';
 export default function AnnualCard({table}: {table: TableDTO}) {
     // const dispatch = useDispatch<AppDispatch>();
     const [openColumnForm, setOpenColumnForm] = useState(false);
+    // const [draggableColumnID, setDraggableColumnID] = useState('');
+
+    // const StartDrag = (id: string)=>{
+    //     setDraggableColumnID(id);
+    // };
+
+    // const DropColumn = (posID: string) => {
+    //     dispatch(tableActions.DragColumn({tableID: table.id, columnID: draggableColumnID, posID: posID}));
+    // };
+
+    // const EndDrag = () =>{
+    //     // setDraggableColumnID('');
+    // };
+
     const COLUMNS = table.columns.map(column => {
         return <Column 
             key={column.id}
             column={column}
             tableID={table.id}
             isDraggable={true}
+            // StartDrag={StartDrag}
+            // Drop={DropColumn}
+            // EndDrag={EndDrag}
         />;
     });
 
@@ -31,8 +48,16 @@ export default function AnnualCard({table}: {table: TableDTO}) {
                 {openColumnForm ? 'CLOSE FORM' : 'ADD COLUMN'}
             </Button>
             {table.columns.length !== 0 &&
-                <div className={style.table}>
-                    <Column column={ANNUAL_STUBCOLUMN} tableID={table.id} isDraggable={false}/>
+                <div className={style.table}
+                >
+                    <Column 
+                        column={ANNUAL_STUBCOLUMN} 
+                        tableID={table.id} 
+                        isDraggable={false}
+                        // StartDrag={StartDrag}
+                        // Drop={DropColumn}
+                        // EndDrag={EndDrag}
+                    />
                     {COLUMNS}
                     {openColumnForm && 
                         <CreateColumnForm 
