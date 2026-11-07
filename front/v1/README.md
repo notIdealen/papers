@@ -1,75 +1,20 @@
-# React + TypeScript + Vite
+chapter 1 lesson 57
+chapter 2 lesson 112
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Проверять ли число на двойные запятые и на минус? Сейчас если двойная запятая это ошибка, остальные символы не вводятся или конвертируются правильно.
 
-Currently, two official plugins are available:
+### Для таблицы сделать:
+✓ разделить ячейки на заголовок и данные
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+✓ функция переименовать колонку
 
-## React Compiler
+- кнопка/div для перетаскивания колонки -> контейнер див который содержит кнопку удалить и переместить.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- функция перетаскивания колонки
 
-## Expanding the ESLint configuration
+✓ разделить колонки на стаб и данные -> вроде разделил, только заголовок стаб можно переименовать, так быть не должно
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+✓ при создании колонки как-то указывать имя и тип колонки. -> появляется колонка пустая, в ней ввожу имя и выбираю тип. На её месте появляется уже сформированная.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+1. получает id ячеек вместо колонки и не меняет местами. также с кнопкой.
+2. определяю id переносимой колонки через глобалку.
