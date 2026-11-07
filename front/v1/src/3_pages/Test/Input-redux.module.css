@@ -1,0 +1,21 @@
+.cell, .input {
+    width: 80px;
+    height: 15px;
+    border: black 1px solid;
+}
+
+.input, .input:focus {
+    display: block;
+}
+
+.input:focus {
+    outline: black 1px solid;
+    background-color: #70e45c;
+}
+
+.parent {
+    display: flexbox;
+    background-color: #e5b65e;
+    border: black 1px solid;
+    padding: 3px;
+}
