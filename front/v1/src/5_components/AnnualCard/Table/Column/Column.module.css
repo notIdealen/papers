@@ -1,11 +1,13 @@
-.column, .stubcolumn, .rowcolumn {
-    /* flex: 1; */
+.column {
     width: 0;
     min-width: 80px;
     padding: 3px;
-    background-color: rgb(126, 139, 103);
-    border: 1px black solid;
+    background-color: gainsboro;
 }
+
+/* .column:hover {
+    cursor: grab;
+} */
 
 .draggable {
     border: 2px solid rgb(99, 47, 231);
@@ -15,57 +17,13 @@
     border: 2px solid red;
 }
 
-.rowcolumn {
-    background-color: #fff;
-}
-.label {
-    display: block;
-    font-size: 10px;
-    
+.panel {
+    display: flex;
+    justify-content: space-between;
+    margin: 3px;
+    background-color: crimson;
 }
 
-.cell, .stubcell, .input, .header {
-    user-select: none;
-    margin: 1px 0px;
-    height: 15px;
-    /* line-height: 15px; */
-    padding: 3px;
-    font-size: 10px;
-    background-color: deeppink;
-    border: 1px black dotted;
-    border-radius: 5px;
-}
-
-.header, .stubheader {
-    background-color: #83ec4e;
-    height: 15px;
-    line-height: 15px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.header:hover {
+.dragarea {
     cursor: grab;
-}
-
-.cell:hover {
-    background-color: #5d8df5;
-}
-
-.cell, .input {
-    text-align: right;
-}
-
-.input, .header {
-    width: 100%;
-    display: block;
-}
-
-.input:focus {
-    outline: black 1px solid;
-    background-color: #70e45c;
-}
-
-.invalid {
-    background-color: brown;
 }

@@ -1,6 +1,6 @@
 import style from './Column.module.css';
 import type { Column as ColumnDTO } from '../../../../2_entities/Table';
-import { useId, useRef, useState } from 'react';
+import { useId, useRef, useState, type RefObject } from 'react';
 import Cell from './Cell/Cell';
 import Button from '../../Button/Button';
 import type { AppDispatch } from '../../../../7_redux/store';
@@ -10,16 +10,15 @@ import { tableActions } from '../../../../7_redux/table.slice';
 type ColumnProps = {
     column: ColumnDTO,
     tableID: string,
-    isDraggable: boolean,
+    draggableColumnID: RefObject<string>,
 }
 
-let GLOBAL_VAR_DRAGGABLE_COLUMN_ID: string;
-
-export default function Column({column, tableID, isDraggable}: ColumnProps) {
+export default function Column({column, tableID, draggableColumnID}: ColumnProps) {
     const headerUUID = useId();
     const footerUUID = useId();
     const dispatch = useDispatch<AppDispatch>();
 
+    const [DRAG, SETDRAG] = useState(false);
     const [draggableStyle, setDraggableStyle] = useState(false);
     const [touchedStyle, setTouchedStyle] = useState(false);
 
@@ -52,21 +51,21 @@ export default function Column({column, tableID, isDraggable}: ColumnProps) {
     }
 
     const COLUMN_FOOTER = <Cell cell={{id: footerUUID, value: footer}} editable={false} type='footer' columnID={column.id}/>;
-    if (!isDraggable) {
-        return <div className={fullClassName} id={column.id} draggable={isDraggable}
+
+    if (column.type === 'static') {
+        return <div className={fullClassName} id={column.id}
         >
-            <Button click={()=>{}}>del</Button>
+            <Button click={()=>{}}>EMPTY</Button>
             {COLUMN_HEADER}
             {COLUMN_CELLS}
             {COLUMN_FOOTER}
         </div>;
     };
 
-    return <div className={fullClassName} id={column.id} draggable={isDraggable}
-        onDragStart={()=>{
-            GLOBAL_VAR_DRAGGABLE_COLUMN_ID = column.id;
-            setDraggableStyle(true);
-        }}// получить id и наложить эффекты на выбранный элемент
+    return <div 
+        className={fullClassName} 
+        id={column.id} 
+        draggable={DRAG}
 
         onDragEnter={(e)=>{
             e.preventDefault();
@@ -75,7 +74,7 @@ export default function Column({column, tableID, isDraggable}: ColumnProps) {
             if (position.current === 1) {
                 setTouchedStyle(true);
             }
-        }}// наложить эффекты элементу над которым проносят, получу id для замены
+        }}
 
         onDragLeave={(e)=>{
             e.preventDefault();
@@ -84,26 +83,37 @@ export default function Column({column, tableID, isDraggable}: ColumnProps) {
             if (position.current === 0) {
                 setTouchedStyle(false);
             }
-        }}// вернуть первоначальный вид элементу, удалить id.
+        }}
 
-        onDragOver={(e)=>{e.preventDefault();}}// разрешает сброс, установить превентдефаулт. или тут получать id
+        onDragOver={(e)=>{e.preventDefault();}}
 
         onDrop={(e)=>{
-            // console.log('>>>>>>', column, position.current);
             e.preventDefault();
             e.stopPropagation();
-            if (column.id === GLOBAL_VAR_DRAGGABLE_COLUMN_ID) {
-                return;
+            if (column.id !== draggableColumnID.current) {
+                dispatch(tableActions.DragColumn({tableID: tableID, columnID: draggableColumnID.current, posID: column.id}));
             }
-            dispatch(tableActions.DragColumn({tableID: tableID, columnID: GLOBAL_VAR_DRAGGABLE_COLUMN_ID, posID: column.id}));
             setTouchedStyle(false);
             position.current = 0;
-        }} // дропает элемент, завершение
+        }}
 
-        onDragEnd={()=>{setDraggableStyle(false); GLOBAL_VAR_DRAGGABLE_COLUMN_ID = '';}}
+        onDragEnd={()=>{
+            draggableColumnID.current = '';
+            setDraggableStyle(false); 
+            SETDRAG(false);
+        }}
     >
         <Button click={()=>{dispatch(tableActions.DeleteColumn({id: column.id}));}}>del</Button>
-        {COLUMN_HEADER}
+        <div className={style.dragarea}
+            draggable
+            onDragStart={()=>{
+                draggableColumnID.current = column.id;
+                setDraggableStyle(true);
+                SETDRAG(true);
+            }}
+        >
+            {COLUMN_HEADER}
+        </div>
         {COLUMN_CELLS}
         {COLUMN_FOOTER}
     </div>;

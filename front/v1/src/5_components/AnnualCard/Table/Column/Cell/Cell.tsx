@@ -1,4 +1,4 @@
-import style from '../Column.module.css';// пока использую колонку, потом часть передам в cell.css
+import style from './Cell.module.css';
 import type { Cell as CellDTO } from '../../../../../2_entities/Table';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,6 +6,7 @@ import type { AppDispatch } from '../../../../../7_redux/store';
 import { tableActions } from '../../../../../7_redux/table.slice';
 import ValidateAndCalculate from './utils/calculator';
 import IsDigitInput from './utils/isDigitInput';
+import GetClassName from './utils/GetClassName';
 
 type CellProps = {
     cell: CellDTO,
@@ -14,35 +15,34 @@ type CellProps = {
     columnID: string,
 }
 
-const DUMMY_CELL: CellDTO = {id: '', value: ''};
-
 export default function Cell({cell, editable, type, columnID}: CellProps) {
     const dispatch = useDispatch<AppDispatch>();
-
+    
     const [isInvalidValue, setIsInvalidValue] = useState(false);
-
-    const [isEditing, setIsEditing] = useState(false);
+    
+    const [isInput, setIsInput] = useState(false);
+    
+    const DUMMY_CELL: CellDTO = {id: '', value: ''};
     const [input, setInput] = useState<CellDTO>(DUMMY_CELL);
+    
+    const cellClassName = GetClassName(type, false);
 
-    const ActivateCell = (e: React.MouseEvent) => {
-        const target = e.target as HTMLElement;
-            setIsEditing(true);
-            setInput({id: target.id, value: target.innerText});
-    };
-
-    if (!isEditing) {
+    if (!isInput) {
         if (editable) {
         return <div 
-            onDoubleClick={ActivateCell}
+            onDoubleClick={() => {
+                setIsInput(true);
+                setInput({id: cell.id, value: cell.value});
+            }}
             id={cell.id}
-            className={isInvalidValue ? style.cell + ' ' + style.invalid : style.cell}
+            className={isInvalidValue ? style[cellClassName] + ' ' + style.invalid : style[cellClassName]}
         >
             {cell.value}
         </div>;
         }
         return <div 
             id={cell.id}
-            className={style.cell}
+            className={style[cellClassName]}
         >
             {cell.value}
         </div>;
@@ -62,7 +62,7 @@ export default function Cell({cell, editable, type, columnID}: CellProps) {
     const Blur = () => {
         if (type === 'header') {
             setIsInvalidValue(false);
-            setIsEditing(false);
+            setIsInput(false);
             dispatch(tableActions.SetColumTitle({columnID: columnID, value: input.value}));
             return;
         }
@@ -70,13 +70,13 @@ export default function Cell({cell, editable, type, columnID}: CellProps) {
         const value = ValidateAndCalculate(input.value);
         if (value === '-1') {
             setIsInvalidValue(true);
-            setIsEditing(false);
+            setIsInput(false);
             dispatch(tableActions.SetValue({id: input.id, value: input.value}));
             return;
         }
 
         setIsInvalidValue(false);
-        setIsEditing(false);
+        setIsInput(false);
         dispatch(tableActions.SetValue({id: input.id, value: value}));
     };
 
@@ -84,7 +84,7 @@ export default function Cell({cell, editable, type, columnID}: CellProps) {
         switch (e.code) {
             case 'Escape': {
                 setInput(DUMMY_CELL);
-                setIsEditing(false);
+                setIsInput(false);
                 break;
             }
             case 'Enter': {
@@ -93,6 +93,7 @@ export default function Cell({cell, editable, type, columnID}: CellProps) {
             }
         }
     };
+    const inputClassName = GetClassName(type, true);
 
     return <input
         onChange={InputValue}
@@ -101,7 +102,7 @@ export default function Cell({cell, editable, type, columnID}: CellProps) {
         autoFocus
         type='text'
         id={input.id}
-        className={isInvalidValue ? style.input + ' ' + style.invalid : style.input}
+        className={isInvalidValue ? style[inputClassName] + ' ' + style.invalid : style[inputClassName]}
         value={input.value}
     />;
 }

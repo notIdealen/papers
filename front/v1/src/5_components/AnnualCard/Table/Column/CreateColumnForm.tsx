@@ -1,5 +1,5 @@
+import style from './CreateColumnForm.module.css';
 import { useState } from 'react';
-import style from './Column.module.css';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../../7_redux/store';
 import { tableActions } from '../../../../7_redux/table.slice';
@@ -29,10 +29,11 @@ export default function CreateColumnForm ({hideForm, tableID}: {hideForm: ()=>vo
         <div className={style.rowcolumn}>
             <p>Enter column name:</p>
             <input 
+                className={style['input-name']}
                 type="text" 
                 value={columnName}
                 onChange={(e) => setColumnName(e.target.value)}
-                placeholder="Column name"
+                placeholder="Enter name"
             />
             <br /><br /><br />
             <p>Choose type:</p>
