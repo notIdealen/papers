@@ -103,7 +103,10 @@ export default function Column({column, tableID, draggableColumnID}: ColumnProps
             SETDRAG(false);
         }}
     >
-        <Button click={()=>{dispatch(tableActions.DeleteColumn({id: column.id}));}}>del</Button>
+        <div className={style.panel}>
+            <Button click={()=>{dispatch(tableActions.DeleteColumn({id: column.id}));}}>del</Button>
+            <Button click={()=>{dispatch(tableActions.DeleteColumn({id: column.id}));}}>add</Button>
+        </div>
         <div className={style.dragarea}
             draggable
             onDragStart={()=>{

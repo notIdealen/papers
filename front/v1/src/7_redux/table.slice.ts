@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {annualTables} from '../99_test_data/data';
+import {annualTables} from '../99_request_data/table_data/data';
 import type { Table } from '../2_entities/Table';
 import { CreateColumn } from '../5_components/AnnualCard/Table/utils/CreateNewTableElement';
 
