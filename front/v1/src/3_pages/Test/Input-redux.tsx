@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '../../7_redux/store';
 import { testActions } from '../../7_redux/test.slice';
-import type { TestData } from '../../2_entities/Test';
+import type { TestData } from '../../2_entities/test.entities';
 
 type CellInfo = {
     id: string,

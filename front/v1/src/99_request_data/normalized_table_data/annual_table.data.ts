@@ -2,9 +2,9 @@ import type {
     NCellMap,
     NColumnMap,
     NSectionMap,
-    NTableMap,
-    NTableData,
-} from '../../5_components/AnnualCard/Table/entities/tableEntities_nmz';
+    NTable,
+    NTableState,
+} from '../../3_pages/AnnualIncomePage/AnnualCard/Table/entities/annual_table.entities';
 
 const cells: NCellMap = {
     'job-jan': {id: 'job-jan', value: '74700', columnId: '2025job'},
@@ -56,13 +56,11 @@ const columns: NColumnMap = {
 };
 
 const sections: NSectionMap = {
-    '2025jobs': {id: '2025jobs', name: 'jobs in 2025', tableID: '2025'},
-    '2025invests': {id: '2025invests', name: 'invest in 2025', tableID: '2025'},
+    '2025jobs': {id: '2025jobs', name: 'jobs in 2025', tableID: 'nt2025'},
+    '2025invests': {id: '2025invests', name: 'invest in 2025', tableID: 'nt2025'},
 };
 
-const tables: NTableMap = {
-    'nt2025': {id: 'nt2025', name: '2025'},
-}; 
+const tables: NTable[] =[{id: 'nt2025', name: '2025'},]; 
 
 const cellIDsOrder: Record<string, string[]> = {};
 for (const key of Object.keys(cells)) {
@@ -91,7 +89,7 @@ for (const key of Object.keys(sections)) {
     sectionIDsOrder[tableID].push(sections[key].id);
 }
 
-export const tableData: NTableData = {
+export const tableData: NTableState = {
     cells: cells,
     columns: columns,
     sections: sections,

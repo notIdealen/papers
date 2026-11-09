@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tableSliceReducer from './table.slice';
+import tableSliceReducer from './annual_table.slice';
 import testSliceReducer from './test.slice';
 
 export const store = configureStore({

@@ -8,13 +8,13 @@ type NTable =   {id: string, name: string};
 type NCellMap = Record<string, NCell>;
 type NColumnMap = Record<string, NColumn>;
 type NSectionMap = Record<string, NSection>;
-type NTableMap = Record<string, NTable>;
+// type NTables = Record<string, NTable>;
 
-interface NTableData {
+interface NTableState {
     cells: NCellMap,
     columns: NColumnMap,
     sections: NSectionMap,
-    tables: NTableMap,
+    tables: NTable[],
 
     sectionIDsOrder: Record<string, string[]>,
     columnIDsOrder: Record<string, string[]>,
@@ -27,9 +27,8 @@ export type {
     NColumn,
     NSection,
     NTable,
-    NTableData,
+    NTableState,
     NCellMap,
     NColumnMap,
-    NTableMap,
     NSectionMap,
 };

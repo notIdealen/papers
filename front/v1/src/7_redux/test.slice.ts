@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { TestData } from '../2_entities/Test';
+import type { TestData } from '../2_entities/test.entities';
 
 
 const INIT_STATE_TEST: TestData[] = [{id: '01', value: '123'}, {id: '02', value: '-65412'}];
