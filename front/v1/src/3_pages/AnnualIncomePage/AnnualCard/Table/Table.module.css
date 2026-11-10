@@ -1,0 +1,6 @@
+.table {
+    display: flex;
+    justify-content: flex-start;
+    background-color: darkblue;
+    /* padding: 4px; */
+}

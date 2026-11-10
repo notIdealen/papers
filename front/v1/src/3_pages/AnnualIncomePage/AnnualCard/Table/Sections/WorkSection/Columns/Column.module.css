@@ -2,13 +2,13 @@
     width: 0;
     min-width: 80px;
     padding: 3px;
-    background-color: gainsboro;
+    background-color: brown;
 }
 
 /* .column:hover {
     cursor: grab;
 } */
-
+/* 
 .draggable {
     border: 2px solid rgb(99, 47, 231);
 }
@@ -26,4 +26,4 @@
 
 .dragarea {
     cursor: grab;
-}
+} */

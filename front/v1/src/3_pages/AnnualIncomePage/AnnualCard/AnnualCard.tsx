@@ -1,11 +1,21 @@
+// import { type ReactNode } from 'react';
 import style from './AnnualCard.module.css';
+import Table from './Table/Table';
+import { TableIDCtx } from './Context/tableid.context';
 
-export default function AnnualCard() {
+type AnnualCardProps = {
+    tableID: string,
+    tableName: string,
+}
+
+export default function AnnualCard(props: AnnualCardProps) {
     //получить 
     return <div className={style.card}>
-        <h1>TABLE NAME</h1>
+        <h1>{props.tableName}</h1>
         <button>DEL-CARD</button>
         <button>SAVE AS TEMPLATE</button>
-        ANNUAL_TABLE
+        <TableIDCtx.Provider value={props.tableID}>
+            <Table/>
+        </TableIDCtx.Provider>
     </div>;
 }

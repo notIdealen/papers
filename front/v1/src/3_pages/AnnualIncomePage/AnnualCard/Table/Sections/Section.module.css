@@ -1,0 +1,14 @@
+.totalsection, .stubsection {
+    border: 1px solid black;
+    background-color: crimson;
+}
+
+.worksection {
+    border: 1px solid black;
+    background-color: rgb(213, 91, 116);
+}
+
+.section {
+    background-color: darkgreen;
+    border: 1px solid black;
+}
