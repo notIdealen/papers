@@ -1,24 +1,33 @@
 type ColumnType = 'static' | 'vsum'| 'lastvalue' | 'hsum' | 'total';
 
-type NCell =    {id: string, value: string, columnId: string};
-type NColumn =  {id: string, name: string, type: ColumnType, sectionID: string};
-type NSection = {id: string, name: string, tableID: string};
-type NTable =   {id: string, name: string};
+type NCell =    {value: string, columnId: string};
+type NColumn =  {name: string, type: ColumnType, sectionID: string};
+type NSection = {name: string, tableID: string};
+type NTable =   {name: string};
 
 type NCellMap = Record<string, NCell>;
 type NColumnMap = Record<string, NColumn>;
 type NSectionMap = Record<string, NSection>;
-// type NTables = Record<string, NTable>;
+type NTableMap = Record<string, NTable>;
 
-interface NTableState {
+type NTableResult = Record<string, string[]>;
+type NSectionResult = Record<string, string[]>;
+type NColumnResult = Record<string, string>;
+
+interface NTablesState {
     cells: NCellMap,
     columns: NColumnMap,
     sections: NSectionMap,
-    tables: NTable[],
+    tables: NTableMap,
 
     sectionIDsOrder: Record<string, string[]>,
     columnIDsOrder: Record<string, string[]>,
     cellIDsOrder:    Record<string, string[]>,
+    tablesOrder: string[],
+
+    tableResult: NTableResult,
+    sectionResults: NSectionResult,
+    columnResult: NColumnResult,
 }
 
 export type {
@@ -27,8 +36,12 @@ export type {
     NColumn,
     NSection,
     NTable,
-    NTableState,
+    NTableMap,
+    NTablesState,
     NCellMap,
     NColumnMap,
     NSectionMap,
+    NColumnResult,
+    NSectionResult,
+    NTableResult,
 };

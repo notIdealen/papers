@@ -1,9 +1,9 @@
 import style from './Column.module.css';
-import HeaderCell from '../../../Cells/HeaderCell';
-import WorkCell from '../../../Cells/WorkCell';
-import WorkFooterCell from '../../../Cells/WorkFooterCell';
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../../../../../../7_redux/store';
+import type { RootState } from '../../../../../7_redux/store';
+import LiveCell from '../3_Cells/LiveCell';
+import LiveHeaderCell from '../3_Cells/LiveHeaderCell';
+import DeadResultCell from '../3_Cells/DeadResultCell';
 
 type ColumnProps = {
     columnID: string,
@@ -13,15 +13,13 @@ export default function WorkColumn(props: ColumnProps) {
     const column = useSelector((state: RootState) => state.TABLE.columns[props.columnID]);//?
     const cellsOrder = useSelector((state: RootState) => state.TABLE.cellIDsOrder[props.columnID]);
 
-    const HEADER_CELL = <HeaderCell>{column.name}</HeaderCell>;
+    const HEADER_CELL = <LiveHeaderCell className='headercell' cellID={props.columnID+'header'}>{column.name}</LiveHeaderCell>;
 
     const CELLS = cellsOrder.map(cellID => {
-        return <WorkCell key={cellID} cellID={cellID}/>;
+        return <LiveCell key={cellID} className='bodycell' cellID={cellID}/>;
     });
-    
-    const footerValue: string = '';
 
-    const FOOTER_CELL = <WorkFooterCell columnID={column.id} columnType={column.type}>{footerValue}</WorkFooterCell>;
+    const FOOTER_CELL = <DeadResultCell className='resultcell' columnID={props.columnID}></DeadResultCell>;
 
     return <div className={style.column}>
         <div>

@@ -1,8 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { tableData } from '../99_request_data/normalized_table_data/annual_table.data';
-import { AddColumn, AddSection, CreateTable, DeleteColumn, DeleteSection, DragColumn, DragSection, RenameColumn, RenameSection, RenameTable, SetCellValue } from '../3_pages/AnnualIncomePage/AnnualCard/Table/redusers/annual_table.reducers';
+// import { tableData } from '../99_request_data/normalized_table_data/annual_table.data';
+import { 
+    AddColumn, 
+    AddSection, 
+    // CalculateAllColumns, 
+    CalculateColumnResult, 
+    CreateTable, 
+    DeleteColumn, 
+    DeleteSection, 
+    DragColumn, 
+    DragSection, 
+    RenameColumn, 
+    RenameSection, 
+    RenameTable, 
+    SetCellValue 
+} from '../3_pages/AnnualIncomePage/AnnualCard/Table/redusers/annual_table.reducers';
+import { NTABLESTATE } from '../99_request_data/normalized_table_data/convert_json_to_ntable';
 
-const INIT_STATE_TABLE = tableData;
+const INIT_STATE_TABLE = NTABLESTATE;
+// CalculateAllColumns(INIT_STATE_TABLE);
 
 export const tableSlice = createSlice({
     name: 'ANNUAL_TABLE',
@@ -10,6 +26,7 @@ export const tableSlice = createSlice({
     reducers: {
         SetCellValue: (state, action) => {
             SetCellValue(state, action.payload);
+            CalculateColumnResult(state, action.payload);
         },
         AddColumn: (state, action) => {
             AddColumn(state, action.payload);

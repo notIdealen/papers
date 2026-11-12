@@ -6,38 +6,38 @@ import type {
     NTableState,
 } from '../../3_pages/AnnualIncomePage/AnnualCard/Table/entities/annual_table.entities';
 
-const columnID25_1 = '2025job';
+const columnID_2025job = '2025job';
 // const columnID25_2 = '2025job2';
 // const columnID25_3 = '2025sber';
-const columnID24_1 = '2024job';
+const columnID_2024job = '2024job';
 // const columnID24_2 = '2024job1';
 
 const cells: NCellMap = {
-    'job24-jan': {id: 'job24-jan', value: '74700', columnId: columnID24_1},
-    'job24-feb': {id: 'job24-feb', value: '78400', columnId: columnID24_1},
-    'job24-mar': {id: 'job24-mar', value: '56230', columnId: columnID24_1},
-    'job24-apr': {id: 'job24-apr', value: '69150', columnId: columnID24_1},
-    'job24-may': {id: 'job24-may', value: '12900', columnId: columnID24_1},
-    'job24-jun': {id: 'job24-jun', value: '76000', columnId: columnID24_1},
-    'job24-jul': {id: 'job24-jul', value: '75000', columnId: columnID24_1},
-    'job24-aug': {id: 'job24-aug', value: '86300', columnId: columnID24_1},
-    'job24-sep': {id: 'job24-sep', value: '',      columnId: columnID24_1},
-    'job24-oct': {id: 'job24-oct', value: '15000', columnId: columnID24_1},
-    'job24-nov': {id: 'job24-nov', value: '76200', columnId: columnID24_1},
-    'job24-dec': {id: 'job24-dec', value: '98600', columnId: columnID24_1},
+    'job24-jan': {value: '74700', columnId: columnID_2024job},
+    'job24-feb': {value: '78400', columnId: columnID_2024job},
+    'job24-mar': {value: '56230', columnId: columnID_2024job},
+    'job24-apr': {value: '69150', columnId: columnID_2024job},
+    'job24-may': {value: '12900', columnId: columnID_2024job},
+    'job24-jun': {value: '76000', columnId: columnID_2024job},
+    'job24-jul': {value: '75000', columnId: columnID_2024job},
+    'job24-aug': {value: '86300', columnId: columnID_2024job},
+    'job24-sep': {value: '',      columnId: columnID_2024job},
+    'job24-oct': {value: '15000', columnId: columnID_2024job},
+    'job24-nov': {value: '76200', columnId: columnID_2024job},
+    'job24-dec': {value: '98600', columnId: columnID_2024job},
 
-    'job-jan': {id: 'job-jan', value: '74700', columnId: columnID25_1},
-    'job-feb': {id: 'job-feb', value: '78400', columnId: columnID25_1},
-    'job-mar': {id: 'job-mar', value: '56230', columnId: columnID25_1},
-    'job-apr': {id: 'job-apr', value: '69150', columnId: columnID25_1},
-    'job-may': {id: 'job-may', value: '12900', columnId: columnID25_1},
-    'job-jun': {id: 'job-jun', value: '76000', columnId: columnID25_1},
-    'job-jul': {id: 'job-jul', value: '75000', columnId: columnID25_1},
-    'job-aug': {id: 'job-aug', value: '86300', columnId: columnID25_1},
-    'job-sep': {id: 'job-sep', value: '',      columnId: columnID25_1},
-    'job-oct': {id: 'job-oct', value: '15000', columnId: columnID25_1},
-    'job-nov': {id: 'job-nov', value: '76200', columnId: columnID25_1},
-    'job-dec': {id: 'job-dec', value: '98600', columnId: columnID25_1},
+    'job-jan': {value: '74700', columnId: columnID_2025job},
+    'job-feb': {value: '78400', columnId: columnID_2025job},
+    'job-mar': {value: '56230', columnId: columnID_2025job},
+    'job-apr': {value: '69150', columnId: columnID_2025job},
+    'job-may': {value: '12900', columnId: columnID_2025job},
+    'job-jun': {value: '76000', columnId: columnID_2025job},
+    'job-jul': {value: '75000', columnId: columnID_2025job},
+    'job-aug': {value: '86300', columnId: columnID_2025job},
+    'job-sep': {value: '',      columnId: columnID_2025job},
+    'job-oct': {value: '15000', columnId: columnID_2025job},
+    'job-nov': {value: '76200', columnId: columnID_2025job},
+    'job-dec': {value: '98600', columnId: columnID_2025job},
 
     'job2-jan': {id: 'job2-jan', value: '100', columnId: '2025job2'},
     'job2-feb': {id: 'job2-feb', value: '',    columnId: '2025job2'},
@@ -67,12 +67,12 @@ const cells: NCellMap = {
 };
 
 const columns: NColumnMap = {
-    '2025job':  {id: '2025job', name: 'My job', type: 'vsum', sectionID: '2025jobs'},
+    '2025job':  {id: '2025job', name: 'My job', type: 'vsum', sectionID: '2025jobs', result: '988000'},
     // '2025job1': {id: '2025job1', name: 'My job2', type: 'vsum', sectionID: '2025jobs'},
     // '2025job11': {id: '2025job11', name: '3job 3', type: 'vsum', sectionID: '2025jobs'},
-    '2025job2': {id: '2025job2', name: 'IP', type: 'vsum', sectionID: '2025jobs'},
-    '2025sber': {id: '2025sber', name: 'sberbank', type: 'lastvalue', sectionID: '2025invests'},
-    '2024job':  {id: '2024job', name: 'My job', type: 'vsum', sectionID: '2024jobs'},
+    '2025job2': {id: '2025job2', name: 'IP', type: 'vsum', sectionID: '2025jobs', result: '3360'},
+    '2025sber': {id: '2025sber', name: 'sberbank', type: 'lastvalue', sectionID: '2025invests', result: '690000'},
+    '2024job':  {id: '2024job', name: 'My job', type: 'vsum', sectionID: '2024jobs', result: '988000'},
     // '2024job1': {id: '2024job1', name: 'My job2', type: 'vsum', sectionID: '2024jobs'},
 };
 

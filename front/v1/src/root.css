@@ -1,11 +1,28 @@
+/* @font-face {
+	font-family: "JBMono-Light"; 
+	src: url("../font/JetBrainsMono-Light.woff2") format("woff2");
+	font-family: "OTF"; 
+	src: url("../font/OpenLukyanov.otf") format("woff2");
+} */
+
+:root {
+  --MainColor: #444444;
+  --BGColor: #444444;
+  --FontColor: #EDEDED;
+  --ErrorColor: #DA0037;
+  --BorderColor: #171717;
+  /* --Color2: #DA0037; */
+}
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif, OTF;
-    font-size: 10px;
-    color: var(--fontColor);
+  box-sizing: border-box;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif, OTF;
+  font-size: 10px;
+  color: var(--fontColor);
 }
 
 *::before, *::after {
   box-sizing: border-box;
 }
+
