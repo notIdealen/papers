@@ -31,43 +31,53 @@ function dragItem(orderSet: Record<string, string[]>, parentID: string, itemID: 
     orderSet[parentID].splice(posIdx, 0, ...orderSet[parentID].splice(columnIdx, 1));
 }
 
-export function CalculateAllColumns(state: NTablesState) {
-    for (const columnID of Object.keys(state.columns)) {
-        CalculateColumnResult(state, {columnID});
-    }
-}
 // END UTILS
 //*************************************************************************************************************
 
-export function CalculateColumnResult(state: NTablesState, {columnID}: {columnID: string}) {
-    const cells = state.cellIDsOrder[columnID];
-
-    let result: string = '';
-    switch (state.columns[columnID].type) {
-        case 'vsum': {
-            let sum: number = 0;
-            cells.forEach( cellID => {
-                const value = state.cells[cellID].value;
-                sum += Number(value);
-            });
-            result = String(sum);
-            break;
-        }
-        case 'lastvalue': {
-            cells.forEach( cellID => {
-                const value = state.cells[cellID].value;
-                result = value !== '' ? value : result;
-            });
-            break;
-        }
-    }
-    state.columnResult[columnID] = result;
-}
-
-//SetVslue
+//SetValue
 export function SetCellValue(state: NTablesState, {id, value}: {id: string, value: string}) {
     if (state.cells[id]) {
         state.cells[id].value = value;
+    }
+
+    const columnID = state.cells[id].columnID;
+    const cellIDs = state.cellIDsOrder[columnID];
+    if (state.columns[columnID].type === 'vsum') {
+        state.columnResult[columnID] = String(cellIDs.reduce((acc, id) => {
+            return acc + Number(state.cells[id].value);
+        }, 0));
+    }
+    
+    if (state.columns[columnID].type === 'lastvalue') {
+        cellIDs.forEach(id => {
+            state.columnResult[columnID] = state.cells[id].value || state.columnResult[columnID];
+        });
+    }
+    //sectionTotal calculate
+    const sectionID = state.columns[columnID].sectionID;
+    for (let i = 0; i < 12; i++) {
+        const sectionSum = state.columnIDsOrder[sectionID].reduce((acc, columnID) => {
+            const cellID =  state.cellIDsOrder[columnID][i];
+            return acc + Number(state.cells[cellID].value);
+        }, 0);
+        state.sectionResults[sectionID] ??= [];
+        state.sectionResults[sectionID][i] = String(sectionSum);
+    }
+    
+    const sectionSum = state.columnIDsOrder[sectionID].reduce((acc, columnID) => {
+        return acc + Number(state.columnResult[columnID]);
+    }, 0);
+    state.sectionResults[sectionID][state.sectionResults[sectionID].length - 1] = String(sectionSum);
+    //TableTotal calculate
+    const tableID = state.sections[sectionID].tableID;
+    for (let i = 0; i < 13; i++) {
+        const total = state.sectionIDsOrder[tableID].reduce((acc, sectionID) => {
+            if (!state.sections[sectionID].isIncludeInCalc) return acc;
+            const value = state.sectionResults[sectionID][i];
+            return acc + Number(value);
+        }, 0);
+        state.tableResult[tableID] ??= [];
+        state.tableResult[tableID][i] = String(total);
     }
 }
 
@@ -89,7 +99,7 @@ export function AddColumn(state: NTablesState,
         state.cellIDsOrder[columnID] = [];
         for (let i = 0; i < 12; i++) {
             const uuid = uuidv4();
-            state.cells[uuid] = {value: '', columnId: columnID};
+            state.cells[uuid] = {value: '', columnID: columnID};
             state.cellIDsOrder[columnID].push(uuid);
         }
         break;
@@ -117,8 +127,8 @@ export function DragColumn(state: NTablesState,
 
 //AddSection
 export function AddSection(state: NTablesState,
-        {posID, columnName, columnType, sectionName, tableID}: 
-            {posID: string, columnName: string, columnType: ColumnType, sectionName: string, tableID: string},
+        {posID, columnName, columnType, sectionName, tableID, isIncludeInCalc}: 
+            {posID: string, columnName: string, columnType: ColumnType, sectionName: string, tableID: string, isIncludeInCalc: boolean},
 ) {
     let sectionID: string = '';
     let columnID: string = '';
@@ -136,12 +146,12 @@ export function AddSection(state: NTablesState,
         state.cellIDsOrder[columnID] = [];
         for (let i = 0; i < 12; i++) {
             const cellID = uuidv4();
-            state.cells[cellID] = {value: '', columnId: columnID};
+            state.cells[cellID] = {value: '', columnID: columnID};
             state.cellIDsOrder[columnID].push(cellID);
         }
         state.columnIDsOrder[sectionID] = [columnID];
 
-        state.sections[sectionID] = {name: sectionName, tableID: tableID};
+        state.sections[sectionID] = {name: sectionName, tableID: tableID, isIncludeInCalc: isIncludeInCalc};
 
         const pos = state.sectionIDsOrder[tableID].findIndex(id => id === posID);
         state.sectionIDsOrder[tableID].splice(pos+1, 0, sectionID);

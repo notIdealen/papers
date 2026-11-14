@@ -11,9 +11,12 @@ type AnnualCardProps = {
 export default function AnnualCard(props: AnnualCardProps) {
     const table = useSelector((state: RootState) => state.TABLE.tables[props.tableID]);
     return <div className={style.card}>
-        <h1>{table.name}</h1>
-        <button>DEL-CARD</button>
-        <button>SAVE AS TEMPLATE</button>
+        <div className={style['card-header']}>
+            <button className={style.button}>m</button>
+            <h1 className={style.title}>{table.name}</h1>
+            <button className={style.button}>x</button>
+            <button className={style.button}>s</button>
+        </div>
         <TableIDCtx.Provider value={props.tableID}>
             <Table/>
         </TableIDCtx.Provider>

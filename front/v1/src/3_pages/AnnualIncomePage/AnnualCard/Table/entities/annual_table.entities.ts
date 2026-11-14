@@ -1,8 +1,8 @@
 type ColumnType = 'static' | 'vsum'| 'lastvalue' | 'hsum' | 'total';
 
-type NCell =    {value: string, columnId: string};
+type NCell =    {value: string, columnID: string};
 type NColumn =  {name: string, type: ColumnType, sectionID: string};
-type NSection = {name: string, tableID: string};
+type NSection = {name: string, tableID: string, isIncludeInCalc: boolean};
 type NTable =   {name: string};
 
 type NCellMap = Record<string, NCell>;

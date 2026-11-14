@@ -1,8 +1,31 @@
 .card {
-    background-color: cornflowerblue;
+    background-color: var(--BGColor);
 }
 
-.table {
-    background-color: gainsboro;
+.card-header {
     display: flex;
+    align-items: center;
+    height: 32px;
+    
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bolder;
+    color: var(--FontColor);
+    margin: 0 10px;
+}
+
+.button {
+    margin: 2px;
+    color: var(--ButtonColor);
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--ButtonColor);
+    border-radius: 12px;
+    background-color: var(--BGColor);
+}
+
+.button:hover {
+    background-color: var(--TableColor1);
 }

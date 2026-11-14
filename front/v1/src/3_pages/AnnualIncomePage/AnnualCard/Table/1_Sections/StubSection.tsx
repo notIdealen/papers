@@ -3,8 +3,9 @@ import StubColumn from '../2_Columns/StubColumn';
 
 export default function StubSection() {
     return <div className={style.stubsection}>
-        <h1>Period</h1>
-        <button>+</button>
+        <div className={style.calcsection}>
+            <h1>Period</h1>
+        </div>
         <StubColumn/>
     </div>;
 }

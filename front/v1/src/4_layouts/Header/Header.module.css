@@ -1,5 +1,5 @@
 .header {
     height: 30px;
     width: 100%;
-    background-color: coral;
+    background-color: var(--Color2);
 }

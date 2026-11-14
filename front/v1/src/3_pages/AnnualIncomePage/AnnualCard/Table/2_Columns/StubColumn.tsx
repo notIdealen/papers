@@ -1,8 +1,7 @@
-import style from './StubColumn.module.css';
+import style from './Column.module.css';
 import DeadCell from '../3_Cells/DeadCell';
 
 export default function StubColumn() {
-
     const months = ['January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const HEADER_CELL = <DeadCell className='headercell'>Month</DeadCell>;
@@ -11,8 +10,13 @@ export default function StubColumn() {
     });
     const FOOTER_CELL = <DeadCell className='resultcell'>Total(Result):</DeadCell>;
 
-    return <div className={style.stubcolumn}>
-        {HEADER_CELL}
+    return <div className={style.column}>
+        <div className={style['header-container']}>
+            <div className={style['button-container']}>
+                <button className={style.button}>+</button>
+            </div>
+            {HEADER_CELL}
+        </div>
         {BODY_CELLS}
         {FOOTER_CELL}
     </div>;

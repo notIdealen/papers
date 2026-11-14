@@ -6,19 +6,30 @@
 } */
 
 :root {
+  --BGColor: #1c1d22;
+  --TableColor1: #313b44;
+  --TableColor2: #606467;
+  --TableColor3: #242c32;
+  --FontColor: #AAA8Ad;
+  --ErrorColor: #e62815;
+  --ButtonColor: #AAA8Ad;
+  --ActiveCellBGColor1: #DA0037;
+  --ActiveCellBGColor2: #f2b006;
+}
+
+/* :root {
   --MainColor: #444444;
   --BGColor: #444444;
   --FontColor: #EDEDED;
   --ErrorColor: #DA0037;
   --BorderColor: #171717;
-  /* --Color2: #DA0037; */
-}
+} */
 
 * {
   box-sizing: border-box;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif, OTF;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--fontColor);
 }
 

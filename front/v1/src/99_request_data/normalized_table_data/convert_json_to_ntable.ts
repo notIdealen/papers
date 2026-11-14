@@ -29,7 +29,7 @@ function ConvertJSONToNData(json: string): NTablesState {
         nTables[table.id] = {name: table.name};
 
         table.sections.forEach(section => {
-            sections[section.id] = {name: section.name, tableID: table.id};
+            sections[section.id] = {name: section.name, tableID: table.id, isIncludeInCalc: section.isIncludeInCalc};
             sectionIDsOrder[table.id] ??= [];
             sectionIDsOrder[table.id].push(section.id);
             
@@ -44,7 +44,7 @@ function ConvertJSONToNData(json: string): NTablesState {
                         let sum: number = 0;
         
                         column.cells.forEach(cell => {
-                            cells[cell.id] = {value: cell.value, columnId: column.id};
+                            cells[cell.id] = {value: cell.value, columnID: column.id};
                             cellIDsOrder[column.id] ??= [];
                             cellIDsOrder[column.id].push(cell.id);
                             sum += Number(cell.value);
@@ -55,7 +55,7 @@ function ConvertJSONToNData(json: string): NTablesState {
                     }
                     case 'lastvalue': {
                         column.cells.forEach(cell => {
-                            cells[cell.id] = {value: cell.value, columnId: column.id};
+                            cells[cell.id] = {value: cell.value, columnID: column.id};
                             cellIDsOrder[column.id] ??= [];
                             cellIDsOrder[column.id].push(cell.id);
                             columnResult[column.id] = cell.value !== '' ? cell.value : columnResult[column.id];
@@ -84,6 +84,7 @@ function ConvertJSONToNData(json: string): NTablesState {
 
         for (let i = 0; i < 13; i++) {
             const total = sectionIDsOrder[table.id].reduce((acc, sectionID) => {
+                if (!sections[sectionID].isIncludeInCalc) return acc;
                 const value = sectionResults[sectionID][i];
                 return acc + Number(value);
             }, 0);

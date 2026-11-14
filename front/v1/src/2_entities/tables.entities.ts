@@ -18,6 +18,7 @@ type Section = {
     id: string,
     name: string,
     columns: Column[],
+    isIncludeInCalc: boolean,
 }
 
 type Table = {

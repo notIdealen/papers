@@ -1,3 +1,4 @@
+import style from './AnnualIncomePage.module.css';
 import Header from '../../4_layouts/Header/Header';
 import AnnualCard from './AnnualCard/AnnualCard';
 import type { RootState } from '../../7_redux/store';
@@ -11,9 +12,9 @@ export default function AnnualIncomePage() {
     });
 
     return (
-        <div>
+        <div className={style['annual-page']}>
             <Header/>
-            <button>CREATE CARD</button>
+            {/* <button>CREATE CARD</button> */}
             {CARDS}
         </div>
     );

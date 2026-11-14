@@ -9,6 +9,6 @@ type DeadCellProps = {
 export default function DeadCell(props: DeadCellProps) {
    
     return <div className={style[props.className]}>
-        {props.children}
+            {props.children}
     </div>;
 }

@@ -1,7 +1,35 @@
 .headercell, .bodycell, .resultcell {
     width: 100%;
-    height: 15px;
-    background-color: var(--BGColor);
-    border: 1px solid black;
+    /* background-color: var(--TableColor1); */
+    border-bottom: 1px solid var(--TableColor2);
     color: var(--FontColor);
+    padding-right: 3px;
+}
+
+.headercell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.bodycell, .resultcell {
+    display: flex;
+    height: 20px;
+    align-items: center;
+    justify-content: right;
+}
+
+.resultcell {
+    font-weight: 700;
+}
+
+.input {
+    width: 100%;
+    height: 20px;
+    text-align: right;
+    /* background-color: var(--Color2); */
+    outline: none;
+    border: none;
 }

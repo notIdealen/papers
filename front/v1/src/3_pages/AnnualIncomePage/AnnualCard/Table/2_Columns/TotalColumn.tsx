@@ -3,6 +3,7 @@ import type { RootState } from '../../../../../7_redux/store';
 import { useSelector } from 'react-redux';
 import { useTableIDCtx } from '../../Context/tableid.context';
 import DeadCell from '../3_Cells/DeadCell';
+import type { ReactElement } from 'react';
 
 export default function TotalColumn() {
     const tableID = useTableIDCtx();
@@ -10,17 +11,19 @@ export default function TotalColumn() {
 
     const HEADER_CELL = <DeadCell className='headercell'>TOTAL</DeadCell>;
     
-        let counter = 0;
-        const CELLS = tableResult.map(value => {
-            counter++;
-            return <DeadCell key={tableID+counter} className='bodycell'>{value}</DeadCell>;
-        });
+        const CELLS: ReactElement[] = [];
+        for (let i = 0; i < tableResult.length; i++) {
+            if (i === tableResult.length - 1) {
+                CELLS.push(<DeadCell key={tableID+i} className='resultcell'>{tableResult[i]}</DeadCell>);
+                continue;
+            }
+            CELLS.push(<DeadCell key={tableID+i} className='bodycell'>{tableResult[i]}</DeadCell>);
+        }
 
     return <div className={style.column}>
-        <div>
-            <button>ADD SEC</button>
-        </div>
+        <div className={style['header-container']}>
         {HEADER_CELL}
+        </div>
         {CELLS}
     </div>;
 };

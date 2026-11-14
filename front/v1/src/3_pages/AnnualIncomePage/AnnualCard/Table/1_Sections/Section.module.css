@@ -1,15 +1,20 @@
-.totalsection, .stubsection {
+.totalsection, .stubsection, .worksection { 
     border: 1px solid black;
-    background-color: crimson;
+    background-color: var(--TableColor3);
 }
 
-.worksection {
-    border: 1px solid black;
-    background-color: rgb(213, 91, 116);
+.calcsection, .nocalcsection {
+    padding: 3px;
+    
 }
 
-.section {
-    background-color: darkgreen;
-    border: 1px solid black;
+.nocalcsection {
+    background-color: var(--ActiveCellBGColor2);
+}
+
+.column-container {
+    background-color: var(--TableColor1);
     display: flex;
 }
+
+/* .create-column- */

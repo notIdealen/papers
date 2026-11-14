@@ -1,12 +1,11 @@
 import style from './Section.module.css';
 import { useSelector } from 'react-redux';
-import SumColumn from '../2_Columns/SumColumn';
+import ResultColumn from '../2_Columns/ResultColumn';
 import type { RootState } from '../../../../../7_redux/store';
 import WorkColumn from '../2_Columns/WorkColumn';
 
 type WorkSectionProps = {
     sectionID: string,
-    // name: string,
 }
 
 export default function WorkSection(props: WorkSectionProps) {
@@ -18,12 +17,12 @@ export default function WorkSection(props: WorkSectionProps) {
     });
 
     return <div className={style.worksection} id={props.sectionID}/*этот див как див для дропа*/>
-        <h1>{section.name}</h1>
-        <button>DELETE</button>
-        <button>ADD-SECTION</button>
-        <div className={style.section}>
+        <div className={section.isIncludeInCalc ? style.calcsection : style.nocalcsection}>
+            <h1>{section.name}</h1>
+        </div>
+        <div className={style['column-container']}>
             {COLUMNS}
-            <SumColumn sectionID={props.sectionID}/>
+            <ResultColumn sectionID={props.sectionID}/>
         </div>
     </div>;
 }

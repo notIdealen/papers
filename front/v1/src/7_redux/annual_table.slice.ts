@@ -4,7 +4,7 @@ import {
     AddColumn, 
     AddSection, 
     // CalculateAllColumns, 
-    CalculateColumnResult, 
+    // CalculateColumnResult, 
     CreateTable, 
     DeleteColumn, 
     DeleteSection, 
@@ -13,7 +13,8 @@ import {
     RenameColumn, 
     RenameSection, 
     RenameTable, 
-    SetCellValue 
+    SetCellValue, 
+    // SetColumnResult
 } from '../3_pages/AnnualIncomePage/AnnualCard/Table/redusers/annual_table.reducers';
 import { NTABLESTATE } from '../99_request_data/normalized_table_data/convert_json_to_ntable';
 
@@ -26,7 +27,6 @@ export const tableSlice = createSlice({
     reducers: {
         SetCellValue: (state, action) => {
             SetCellValue(state, action.payload);
-            CalculateColumnResult(state, action.payload);
         },
         AddColumn: (state, action) => {
             AddColumn(state, action.payload);
